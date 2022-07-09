@@ -1,0 +1,17 @@
+.movie-table {
+   button {
+      width: 60px;
+
+      &.btn-edit {
+         margin-right: 5px;
+      }
+
+      &.btn-delete {
+         margin-left: 5px;
+      }
+   }
+
+   .pagination {
+      margin: 0 auto;
+   }
+}
