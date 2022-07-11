@@ -21,11 +21,18 @@ class ShowtimeManage extends React.Component {
       // console.log(this.props)
       this.props.history.push('/admin')
    }
+
+   handleLogOut = () => {
+      localStorage.clear()
+      window.location.pathname = '/api/auth/login'
+      // alert(1)
+   }
+
    render() {
       return (
          <>
-            <AdminHeader />
-            <PaginationComp />
+            <AdminHeader handleLogOut={this.handleLogOut} />
+            {/* <PaginationComp /> */}
             <Table bordered className="user-table">
                <thead>
                   <tr>

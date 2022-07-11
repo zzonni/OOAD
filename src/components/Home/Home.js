@@ -1,17 +1,25 @@
 import React from 'react'
-import SignUpForm from '../SignUpForm/SignUpForm'
-import './Home.scss'
+import LoginForm from '../LoginForm/LoginForm'
+import UserHomepage from './UserHomepage/UserHomepage'
 
 class Home extends React.Component {
    state = {
-      active: true,
+      id: 0,
+      username: ''
    }
 
+   handleSendUserID = async (data) => {
+      console.log(data)
+      this.setState({
+         id: data.id,
+         username: data.username
+      })
+   }
    render() {
-      let { active } = this.state
       return (
          <>
-            <SignUpForm />
+            <LoginForm handleSendUserID={this.handleSendUserID} />
+            <UserHomepage userID={this.state.id} />
          </>
       )
    }

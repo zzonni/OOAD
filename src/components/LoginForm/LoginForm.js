@@ -2,13 +2,17 @@ import React from 'react'
 import './LoginForm.scss'
 import { Button } from 'reactstrap'
 import { loginUserApi } from '../../services/userService'
+import { withRouter } from 'react-router-dom'
 
 
 class LoginForm extends React.Component {
    state = {
+      id: 0,
       username: '',
       password: '',
-      roleId: 'customer',
+      role: 'customer',
+      errCode: 0,
+      errMessage: '',
    }
    handleOnChangeUsername = (event) => {
       this.setState({
@@ -22,12 +26,36 @@ class LoginForm extends React.Component {
    }
 
    handleLoginUser = async (username, password) => {
-      let res = await loginUserApi(username, password)
-      console.log(res)
+      try {
+         let res = await loginUserApi(username, password)
+         if (res) {
+            this.setState({
+               id: res.data.user.id,
+               role: res.data.user.role,
+               errCode: res.data.errCode,
+               errMessage: res.data.errMessage
+            })
+         }
+
+         if (res && res.data.user.role === 'admin' && res.data.accessToken) {
+            localStorage.setItem('is_authenticated', true)
+            window.location.pathname = '/admin'
+         } else {
+            localStorage.setItem('userID', res.data.user.id)
+            window.location.pathname = '/movie/now'
+         }
+      } catch (e) {
+         console.log(e.message)
+      }
+   }
+
+
+   handleMoveToRegisterPage = () => {
+      this.props.history.push('/api/auth/register')
    }
 
    render() {
-      let { username, password, roleId } = this.state
+      let { username, password } = this.state
       return (
          <>
             <div className="form">
@@ -57,12 +85,13 @@ class LoginForm extends React.Component {
                      <Button
                         type="button"
                         className="btn btn-register"
-                        onClick={() => this.handleLoginUser(username, password)}
+                        onClick={(e) => this.handleLoginUser(username, password, e)}
                      >
                         Sign In
                      </Button>
                      <Button
                         className="btn btn-signin"
+                        onClick={() => this.handleMoveToRegisterPage()}
                      >
                         Register
                      </Button>
@@ -74,4 +103,4 @@ class LoginForm extends React.Component {
    }
 }
 
-export default LoginForm
+export default withRouter(LoginForm)

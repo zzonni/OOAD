@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from 'reactstrap'
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal, ModalHeader } from 'reactstrap'
 import AddMovieForm from "./AddMovieForm";
 import './MovieModal.scss'
 
@@ -32,21 +32,10 @@ class MovieModal extends React.Component {
                <ModalHeader>
                   Add a new movie
                </ModalHeader>
-               <ModalBody>
-                  <AddMovieForm />
-               </ModalBody>
-               <ModalFooter>
-                  <Button
-                     color="primary"
-                     onClick={() => this.handleToggleModal()}
-                  >
-                     Do Something
-                  </Button>
-                  {/* {' '} */}
-                  <Button onClick={() => this.handleToggleModal()}>
-                     Cancel
-                  </Button>
-               </ModalFooter>
+               <AddMovieForm
+                  handleToggleModal={this.handleToggleModal}
+                  handleAddNewMovie={this.props.handleAddNewMovie}
+               />
             </Modal>
          </div>
       )

@@ -5,7 +5,7 @@ import { Table } from 'reactstrap'
 import PaginationComp from "../../PaginationComp";
 import AdminHeader from "../AdminHeader";
 import './UserManage.scss'
-import { getAllUsersApi } from "../../../../services/userService";
+import { deleteUserApi, getAllUsersApi } from "../../../../services/userService";
 
 class UserManage extends React.Component {
    state = {
@@ -25,18 +25,37 @@ class UserManage extends React.Component {
       })
    }
 
+   handleDeleteUser = async (singleUserId) => {
+      let res = await deleteUserApi(singleUserId)
+      this.setState({
+         listUsers: res.data.listUsers
+      })
+   }
+
+   handleLogOut = () => {
+      localStorage.clear()
+      window.location.pathname = '/api/auth/login'
+      // alert(1)
+   }
+
+   async componentDidUpdate() {
+      let res = await getAllUsersApi('all')
+      this.setState({
+         listUsers: res.data.listUsers
+      })
+   }
    render() {
       let listUsers = this.state.listUsers
       return (
          <>
-            <AdminHeader handleGetAllUsers={this.handleGetAllUsers} />
+            <AdminHeader handleLogOut={this.handleLogOut} />
             <Button
                color="success"
                onClick={() => this.handleGetAllUsers()}
             >
                REFRESH
             </Button>
-            <PaginationComp />
+            {/* <PaginationComp /> */}
             <Table bordered className="user-table">
                <thead>
                   <tr>
@@ -56,10 +75,13 @@ class UserManage extends React.Component {
                         Username
                      </th>
                      <th>
-                        Gender
+                        Phone Number
                      </th>
                      <th>
                         Address
+                     </th>
+                     <th>
+                        Gender
                      </th>
                      <th>
                         Actions
@@ -87,13 +109,16 @@ class UserManage extends React.Component {
                                  {singleUser.username}
                               </td>
                               <td>
-                                 {singleUser.gender ? 'Male' : 'Female'}
+                                 {singleUser.phonenumber}
                               </td>
                               <td>
                                  {singleUser.address}
                               </td>
                               <td>
-                                 <button>Delete</button>
+                                 {singleUser.gender}
+                              </td>
+                              <td>
+                                 <button type="button" onClick={() => this.handleDeleteUser(singleUser.id)}>Delete</button>
                               </td>
                            </tr>
                         )

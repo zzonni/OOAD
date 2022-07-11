@@ -1,13 +1,10 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-const ProtectedRoute = ({ component: Component, ...restOfProps }) => {
+const ProtectedRoute = ({ children }) => {
    const isAuthenticated = localStorage.getItem('is_authenticated')
    return (
-      <Route
-         {...restOfProps}
-         render={(props) => isAuthenticated ? <Component {...props} /> : <Redirect to="/api/auth/login" />}
-      />
+      isAuthenticated ? children : <Redirect to="/api/auth/login" />
    )
 }
 

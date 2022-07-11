@@ -9,8 +9,8 @@ const loginUserApi = (username, password) => {
    return instance.post('/auth/login', { username: username, password: password })
 }
 
-const deleteUserApi = () => {
-
+const deleteUserApi = (userId) => {
+   return instance.delete(`/user/${userId}`)
 }
 
 const getAllUsersApi = (userId) => {
