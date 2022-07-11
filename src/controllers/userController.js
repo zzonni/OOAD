@@ -1,4 +1,4 @@
-import db from '../models/index'
+
 import jwt from 'jsonwebtoken'
 import userService from '../services/userService'
 
@@ -30,9 +30,8 @@ const userController = {
                     path: "/",
                     sameSite: "strict"
                 })
-                // localStorage.setItem('access_token', accessToken)    
                 refreshTokenArr.push(refreshToken)
-                return res.status(200).json(userLogin)
+                return res.status(200).json({ ...userLogin, accessToken, refreshToken })
             }
         } catch (e) {
             return res.status(500).json(e)
@@ -42,7 +41,7 @@ const userController = {
     generateAccessToken: (user) => {
         return jwt.sign({
             id: user.id,
-            roleId: user.roleId
+            role: user.role
         },
             process.env.JWT_ACCESS_KEY,
             {
@@ -55,7 +54,7 @@ const userController = {
     generateRefreshToken: (user) => {
         return jwt.sign({
             id: user.id,
-            roleId: user.roleId
+            role: user.role
         },
             process.env.JWT_REFRESH_KEY,
             {
@@ -95,16 +94,18 @@ const userController = {
             res.status(500).json(e)
         }
     },
-    deleteAnUser: async (req, res) => {
+    handleDeleteUser: async (req, res) => {
         try {
-            const alert = 'Deleted!'
-            // v1/user/123 -> req.params.id = 123
-            const user = await db.User.findOne({
-                where: {
-                    id: req.params.id
-                }
-            })
-            res.status(200).json(alert)
+            let userId = req.params.id
+            if (userId) {
+                let restUsers = await userService.deleteUser(userId)
+                return res.status(200).json(restUsers)
+            } else {
+                return res.status(404).json({
+                    errCode: 4,
+                    errMessage: "USER NOT FOUND",
+                })
+            }
         } catch (e) {
             res.status(500).json(e)
             // console.log(e.message)

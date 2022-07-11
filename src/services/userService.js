@@ -1,6 +1,5 @@
 import db from '../models/index'
 import bcrypt from 'bcrypt'
-import { reset } from 'nodemon'
 
 
 // check if username existed or not
@@ -40,7 +39,8 @@ let registerUser = (data) => {
                lastName: data.lastName,
                address: data.address,
                gender: data.gender,
-               roleId: data.roleId
+               phonenumber: data.phonenumber,
+               role: data.role
             })
             resolve(newUser)
          } else {
@@ -60,7 +60,7 @@ let loginUser = (username, userPassword) => {
          let isUsernameExisted = await checkUsername(username)
          if (isUsernameExisted) {
             let user = await db.User.findOne({
-               attributes: ['username', 'password', 'roleId'],
+               attributes: ['id', 'username', 'password', 'role'],
                where: {
                   username: username,
                }
@@ -121,9 +121,29 @@ let getAllUsers = (userId) => {
    })
 }
 
+let deleteUser = (userId) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         let user = await db.User.findOne({
+            where: {
+               id: userId
+            }
+         })
+         if (user) {
+            await user.destroy()
+         }
+         let restUser = await db.User.findAll()
+         resolve(restUser)
+      } catch (e) {
+         reject(e)
+      }
+   })
+}
+
 module.exports = {
    checkUsername: checkUsername,
    registerUser: registerUser,
    loginUser: loginUser,
    getAllUsers: getAllUsers,
+   deleteUser: deleteUser
 }

@@ -8,16 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      numberOfSeats: {
+      roomName: {
+        type: Sequelize.STRING
+      },
+      maxSlot: {
         type: Sequelize.INTEGER
       },
-      rows: {
-        type: Sequelize.INTEGER
-      },
-      columns: {
-        type: Sequelize.INTEGER
-      },
-      seatId: {
+      availableSlot: {
         type: Sequelize.INTEGER
       },
       createdAt: {

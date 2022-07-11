@@ -8,23 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      movieName: {
         type: Sequelize.STRING
       },
       date: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
-      categoryId: {
-        type: Sequelize.INTEGER
+      category: {
+        type: Sequelize.STRING
       },
       duration: {
         type: Sequelize.INTEGER
       },
       rate: {
         type: Sequelize.INTEGER
-      },
-      status: {
-        type: Sequelize.BOOLEAN
       },
       image: {
         type: Sequelize.STRING

@@ -9,7 +9,7 @@ module.exports = {
             lastName: 'Cena',
             address: 'DA, HN',
             gender: true,
-            roleId: true,
+            role: true,
             createdAt: new Date(),
             updatedAt: new Date()
         }])

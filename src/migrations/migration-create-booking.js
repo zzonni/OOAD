@@ -8,23 +8,35 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      statusId: {
+      userID: {
+        type: Sequelize.INTEGER
+      },
+      username: {
         type: Sequelize.STRING
       },
-      staffId: {
+      firstName: {
+        type: Sequelize.STRING
+      },
+      lastName: {
+        type: Sequelize.STRING
+      },
+      movieName: {
+        type: Sequelize.STRING
+      },
+      movieID: {
         type: Sequelize.INTEGER
       },
-      customerId: {
-        type: Sequelize.INTEGER
+      roomName: {
+        type: Sequelize.STRING
       },
-      movieId: {
+      roomID: {
         type: Sequelize.INTEGER
       },
       date: {
         type: Sequelize.DATE
       },
-      timeType: {
-        type: Sequelize.DATE
+      showtime: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

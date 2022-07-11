@@ -13,7 +13,7 @@ let app = express()
 app.use(cors({
     origin: true,
     credentials: true,
-    methods: 'POST'
+    methods: ['POST', 'GET', 'DELETE', 'PUT']
 }))
 
 // Config app
