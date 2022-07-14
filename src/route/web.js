@@ -36,7 +36,9 @@ let initWebRoutes = (app) => {
     router.get('/api/room/all', roomController.handleGetRoom)
 
     router.post('/api/booking/add', bookingController.handleCreateBooking)
-    router.get('/api/booking/result', bookingController.handleGetBooking)
+    router.get('/api/booking/result/:id', bookingController.handleGetBooking)
+    router.put('/api/booking/update/', bookingController.handleUpdateBooking)
+    router.delete('/api/booking/delete/:id', bookingController.handleDeleteBooking)
 
     return app.use("/", router)
 }

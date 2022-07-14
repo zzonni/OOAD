@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     movieID: DataTypes.INTEGER,
     roomName: DataTypes.STRING,
     roomID: DataTypes.INTEGER,
-    date: DataTypes.DATE,
-    showtime: DataTypes.DATE,
+    date: DataTypes.STRING,
+    showtime: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Booking',

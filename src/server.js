@@ -1,6 +1,5 @@
 import express from 'express'
 import bodyParser from 'body-parser' // get params that client use. E.g: querry params: /user?id=7 => get id=7
-// import configViewEngine from './config/viewEngine'
 import initWebRoutes from './route/web'
 import dotenv from 'dotenv'
 import connectDB from './config/connectDB'

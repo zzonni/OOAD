@@ -69,8 +69,19 @@ let deleteMovie = (movieId) => {
    })
 }
 
+let editMovie = (movieId) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+
+      } catch (e) {
+         reject(e)
+      }
+   })
+}
+
 module.exports = {
    addNewMovie: addNewMovie,
    getMovie: getMovie,
    deleteMovie: deleteMovie,
+   editMovie: editMovie,
 }
