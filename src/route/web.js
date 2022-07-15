@@ -31,6 +31,8 @@ let initWebRoutes = (app) => {
     router.post('/api/movie/add', movieController.handleAddNewMovie)
     router.get('/api/movie/:id', movieController.handleGetMovie)
     router.delete('/api/movie/delete/:id', movieController.handleDeleteMovie)
+    router.put('/api/movie/edit', movieController.handleUpdateMovie)
+    router.get('/api/movie/find/:name', movieController.handleFindMovie)
 
     router.post('/api/room/add', roomController.handleCreateRoom)
     router.get('/api/room/all', roomController.handleGetRoom)

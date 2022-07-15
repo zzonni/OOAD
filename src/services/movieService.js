@@ -69,10 +69,47 @@ let deleteMovie = (movieId) => {
    })
 }
 
-let editMovie = (movieId) => {
+let updateMovie = (editedMovie) => {
    return new Promise(async (resolve, reject) => {
       try {
+         let movie = await db.Movie.findOne({
+            where: {
+               id: editedMovie.id
+            }
+         })
+         if (movie) {
+            let movieUpdated = await movie.update({
+               // id: editedMovie.id,
+               movieName: editedMovie.movieName,
+               date: editedMovie.date,
+               category: editedMovie.category,
+               duration: editedMovie.duration,
+               rate: editedMovie.rating,
+               image: editedMovie.image,
+            })
+            await movieUpdated.save()
+            // let allMovie = await db.Movie.findAll()
+            resolve(movieUpdated)
+         }
+      } catch (e) {
+         reject(e)
+      }
+   })
+}
 
+let findMovie = (keyword) => {
+   return new Promise(async (resolve, reject) => {
+      try {
+         if (keyword) {
+            let movie = await db.Movie.findOne({
+               where: {
+                  movieName: keyword
+               }
+            })
+            if (movie) {
+               resolve(movie)
+            }
+         }
       } catch (e) {
          reject(e)
       }
@@ -83,5 +120,6 @@ module.exports = {
    addNewMovie: addNewMovie,
    getMovie: getMovie,
    deleteMovie: deleteMovie,
-   editMovie: editMovie,
+   updateMovie: updateMovie,
+   findMovie: findMovie,
 }

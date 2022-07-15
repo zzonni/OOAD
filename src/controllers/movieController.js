@@ -38,10 +38,27 @@ const movieController = {
             })
          }
       } catch (e) {
-         res.status(500).json(e)
+         return res.status(500).json(e)
          // console.log(e.message)
       }
    },
+   handleUpdateMovie: async (req, res) => {
+      try {
+         let newListMovies = await movieService.updateMovie(req.body)
+         return res.status(200).json(newListMovies)
+      } catch (e) {
+         return res.status(500).json(e)
+      }
+   },
+   handleFindMovie: async (req, res) => {
+      try {
+         let name = req.params.name
+         let movieFound = await movieService.findMovie(name)
+         return res.status(200).json(movieFound)
+      } catch (e) {
+         return res.status(500).json(e)
+      }
+   }
 }
 
 module.exports = movieController
