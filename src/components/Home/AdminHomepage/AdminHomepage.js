@@ -18,14 +18,14 @@ class AdminHomepage extends React.Component {
          <div className="admin">
             <AdminHeader handleLogOut={this.handleLogOut} />
             <div className="admin-container">
-               <NavLink className="manage-container" to="/admin/moviemanage">
-                  MOVIE MANAGEMENT
+               <NavLink className="manage-container first" to="/admin/moviemanage">
+                  MOVIE
                </NavLink>
-               <NavLink className="manage-container" to="/admin/usermanage">
-                  USER MANAGEMENT
+               <NavLink className="manage-container second" to="/admin/usermanage">
+                  USER
                </NavLink>
-               <NavLink className="manage-container" to="/admin/showtimemanage">
-                  SHOWTIME MANAGEMENT
+               <NavLink className="manage-container third" to="/admin/showtimemanage">
+                  SHOWTIME
                </NavLink>
             </div>
          </div>

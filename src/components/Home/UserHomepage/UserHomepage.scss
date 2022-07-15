@@ -1,5 +1,9 @@
-.user {
+body {
+   padding-bottom: 30px;
    background-color: #FDFCF0;
+}
+
+.user {
 
    .topnav {
       overflow: hidden;
@@ -123,6 +127,32 @@
             border-radius: 5px;
             border: 2px solid #a09e9e;
             outline: none;
+            position: relative;
+
+            input {
+               width: 100px;
+               height: 50px;
+               background-color: transparent;
+               border: none;
+               color: #DC3545;
+               font-weight: bold;
+               position: absolute;
+               transform: translate(-50%, -5px);
+
+               &.active {
+                  background-color: transparent;
+                  border: none;
+                  color: #DC3545;
+               }
+            }
+
+            // pointer-events:fill;
+
+            &.active {
+               background-color: #FCEFB7;
+               border: none;
+               color: #DC3545;
+            }
 
             &:hover {
                background-color: #FCEFB7;
@@ -130,12 +160,17 @@
                color: #DC3545;
             }
 
-            &.active {
-               background-color: #FCEFB7;
-               border: none;
-               color: #DC3545;
-            }
          }
       }
+   }
+}
+
+.confirm-movie {
+   padding: 50px 20vw;
+   font-size: 1rem;
+
+   button {
+      width: 100px;
+      margin: 0 10px;
    }
 }

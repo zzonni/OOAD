@@ -2,6 +2,8 @@ import React from 'react'
 
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import LoginForm from '../components/LoginForm/LoginForm';
 import SignUpForm from '../components/SignUpForm/SignUpForm';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -12,7 +14,8 @@ import ShowtimeManage from '../components/Home/AdminHomepage/ShowtimeManage/Show
 import ProtectedRoute from '../components/ProtectedRoute';
 import UserHomepage from '../components/Home/UserHomepage/UserHomepage';
 import UserSelect from '../components/Home/UserHomepage/UserSelect';
-import Home from '../components/Home/Home';
+import UserConfirm from '../components/Home/UserHomepage/UserConfirm';
+import UserRoute from '../components/UserRoute';
 
 
 
@@ -51,15 +54,32 @@ class App extends React.Component {
               </ProtectedRoute>
             </Route>
             <Route path="/movie/now">
-              <UserHomepage />
+              <UserRoute>
+                <UserHomepage />
+              </UserRoute>
             </Route>
-            <Route path="/movie/booking">
-              <UserSelect />
+            <Route path="/movie/booking" exact>
+              <UserRoute>
+                <UserSelect />
+              </UserRoute>
             </Route>
-            <Route path="/home">
-              <Home />
+            <Route path="/movie/booking/confirm">
+              <UserRoute>
+                <UserConfirm />
+              </UserRoute>
             </Route>
           </Switch>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </div>
       </BrowserRouter>
     );

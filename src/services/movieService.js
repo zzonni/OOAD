@@ -5,12 +5,12 @@ const addNewMovieApi = (data) => {
    return instance.post('/movie/add', data)
 }
 
-const editMovieApi = () => {
-
+const findMovieApi = (keyword) => {
+   return instance.get(`/movie/find/${keyword}`)
 }
 
-const updateMovieApi = () => {
-
+const updateMovieApi = (editedData) => {
+   return instance.put('/movie/edit', editedData)
 }
 
 const deleteMovieApi = (movieId) => {
@@ -25,7 +25,7 @@ const getMovieApi = (movieId) => {
 
 export {
    addNewMovieApi,
-   editMovieApi,
+   findMovieApi,
    updateMovieApi,
    deleteMovieApi,
    getMovieApi

@@ -1,11 +1,12 @@
 import React from "react";
 import './MovieManage.scss'
 import AdminHeader from "../AdminHeader";
-import { Table } from 'reactstrap'
+import { Table, Button } from 'reactstrap'
 import './MovieManage.scss'
-import PaginationComp from "../../PaginationComp";
+// import PaginationComp from "../../PaginationComp";
 import MovieModal from "./MovieModal";
-import { addNewMovieApi, deleteMovieApi, getMovieApi } from '../../../../services/movieService'
+import { addNewMovieApi, deleteMovieApi, getMovieApi, updateMovieApi } from '../../../../services/movieService'
+import EditModal from "./EditModal";
 
 class MovieManage extends React.Component {
    state = {
@@ -25,22 +26,42 @@ class MovieManage extends React.Component {
    }
 
    handleAddNewMovie = async (data) => {
-      let res = await addNewMovieApi(data)
-      console.log("AFTER ADD:", res)
-
+      await addNewMovieApi(data)
+      // console.log("AFTER ADD:", res)
+      let movieRes = await getMovieApi('all')
+      this.setState({
+         listMovies: movieRes.data.listMovies
+      })
    }
 
    handleDeleteMovie = async (singleMovieId) => {
       let res = await deleteMovieApi(singleMovieId)
-      console.log("REST MOVIE: ", res)
+      // console.log("REST MOVIE: ", res)
       this.setState({
          listMovies: res.data.restMovies
       })
    }
 
+   handleEditMovie = async (data) => {
+      try {
+         // console.log(data)
+         await updateMovieApi(data)
+         let res = await getMovieApi('all')
+         this.setState({
+            listMovies: res.data.listMovies
+         })
+         // console.log(editedData)
+      } catch (e) {
+         console.log(e)
+      }
+      // this.setState({
+
+      // })
+   }
+
    render() {
       let listMovies = this.state.listMovies
-      console.log(listMovies)
+      // console.log(listMovies)
       return (
          <>
             <AdminHeader handleLogOut={this.handleLogOut} />
@@ -72,7 +93,7 @@ class MovieManage extends React.Component {
                      <th>
                         Image
                      </th>
-                     <th>
+                     <th colSpan={2}>
                         Actions
                      </th>
                   </tr>
@@ -107,8 +128,13 @@ class MovieManage extends React.Component {
                                  {singleMovie.image}
                               </td>
                               <td>
-                                 <button className="btn-edit">Edit</button>
-                                 <button className="btn-delete" onClick={() => this.handleDeleteMovie(singleMovie.id)}>Delete</button>
+                                 <EditModal
+                                    handleEditMovie={this.handleEditMovie}
+                                    editMovieID={singleMovie.id}
+                                 />
+                              </td>
+                              <td>
+                                 <Button className="btn-delete" onClick={() => this.handleDeleteMovie(singleMovie.id)}>Del</Button>
                               </td>
                            </tr>
                         )
@@ -116,7 +142,9 @@ class MovieManage extends React.Component {
                   }
                </tbody>
             </Table>
-            <MovieModal handleAddNewMovie={this.handleAddNewMovie} />
+            <MovieModal
+               handleAddNewMovie={this.handleAddNewMovie}
+            />
          </>
       )
    }
